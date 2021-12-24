@@ -41,6 +41,6 @@ app.use("/api/posts", postRoute);
 app.use("/api/categories", categoryRoute);
 
 const POST = process.env.PORT || 5000;
-app.listen("POST", () => {
+app.listen(POST, () => {
     console.log("Backend is running.");
 });
