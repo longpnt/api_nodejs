@@ -1,12 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const Post = require("../models/Post");
-var cors = require('cors')
-var corsOptions = {
-        origin: 'https://react-node-blog-haha.herokuapp.com/api/',
-        optionsSuccessStatus: 200
-    }
-    //Create Post
+//Create Post
 router.post("/", async(req, res) => {
     const newPost = new Post(req.body);
     try {
@@ -69,7 +64,7 @@ router.get("/:id", cors(), async(req, res) => {
 });
 
 //Get all post
-router.get("/", cors(corsOptions), async(req, res) => {
+router.get("/", async(req, res) => {
     const username = req.query.user;
     const catName = req.query.cat;
     try {
