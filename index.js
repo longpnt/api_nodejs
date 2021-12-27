@@ -8,6 +8,7 @@ const postRoute = require("./routes/posts");
 const categoryRoute = require("./routes/categories");
 const multer = require("multer");
 const path = require("path");
+const cors = require("cors");
 
 
 dotenv.config();
@@ -41,7 +42,8 @@ app.use("/api/users", userRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/categories", categoryRoute);
 
+app.use(cors())
 const POST = process.env.PORT || 5000;
-app.listen(POST, () => {
-    console.log("Backend is running.");
+app.listen(POST, cors(), () => {
+    console.log("CORS-enabled web server & Backend is running");
 });
