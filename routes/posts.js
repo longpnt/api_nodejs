@@ -1,8 +1,12 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const Post = require("../models/Post");
-
-//Create Post
+var cors = require('cors')
+var corsOptions = {
+        origin: 'https://react-node-blog-haha.herokuapp.com/api/',
+        optionsSuccessStatus: 200
+    }
+    //Create Post
 router.post("/", async(req, res) => {
     const newPost = new Post(req.body);
     try {
@@ -54,8 +58,8 @@ router.delete("/:id", async(req, res) => {
         res.status(500).json(err);
     }
 });
-//Get user
-router.get("/:id", async(req, res) => {
+//Get post
+router.get("/:id", cors(), async(req, res) => {
     try {
         const post = await Post.findById(req.params.id);
         res.status(200).json(post);
@@ -65,7 +69,7 @@ router.get("/:id", async(req, res) => {
 });
 
 //Get all post
-router.get("/", async(req, res) => {
+router.get("/", cors(corsOptions), async(req, res) => {
     const username = req.query.user;
     const catName = req.query.cat;
     try {
@@ -85,5 +89,5 @@ router.get("/", async(req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
-});
+})
 module.exports = router;

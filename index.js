@@ -8,7 +8,7 @@ const postRoute = require("./routes/posts");
 const categoryRoute = require("./routes/categories");
 const multer = require("multer");
 const path = require("path");
-const cors = require("cors");
+var cors = require('cors')
 
 
 dotenv.config();
@@ -39,11 +39,23 @@ app.post("/api/upload", upload.single("file"), (req, res) => {
 app.use("/api/auth/register", authRoute);
 app.use("/api/auth/login", authRoute);
 app.use("/api/users", userRoute);
-app.use("/api/posts", postRoute);
+app.use("/api/posts", cors(), postRoute);
 app.use("/api/categories", categoryRoute);
 
-app.use(cors())
 const POST = process.env.PORT || 5000;
-app.listen(POST, cors(), () => {
-    console.log("CORS-enabled web server & Backend is running");
+app.listen(POST, () => {
+    console.log("Backend is running");
+});
+app.use(function(req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader(
+        "Access-Control-Allow-Methods",
+        "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+    );
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "X-Requested-With,content-type"
+    );
+    res.setHeader("Access-Control-Allow-Credentials", true);
+    next();
 });

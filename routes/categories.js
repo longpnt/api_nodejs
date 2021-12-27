@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const Category = require("../models/Category");
-
+var cors = require('cors')
 router.post("/", async(req, res) => {
     const newCat = new Category(req.body);
     try {
@@ -11,7 +11,7 @@ router.post("/", async(req, res) => {
     }
 })
 
-router.get("/", async(req, res) => {
+router.get("/", cors(), async(req, res) => {
     try {
         const cats = await Category.find();
         res.status(200).json(cats);
